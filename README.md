@@ -14,7 +14,7 @@ blob_id = '1oq2pdwsDSKJEWmj8Ly6EvBv55MqYpZy-'
 f = da.open_file(blob_id)
 print(f.readline())
 ```
-`driveanon.open_file()` returns an in-memory open (BytesIO) file-like object. If the file is very large your memory may page or it may not work at all. We are currently working on a lazy (out-of-memory) file reading capability.
+`driveanon.open_file()` returns an in-memory open (BytesIO) file-like object. If the file is very large your memory may page or it may not work at all. We are currently working on a lazy (out-of-memory) file loading capability.
 
 ## Getting Blob Ids
 One way to get a list of blob ids using authentication is with [rclone](https://rclone.org). See the rclone docs on how to install and configure this tool. To get a list of files and blob ids from a remote, use:
