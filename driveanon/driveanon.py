@@ -7,7 +7,7 @@ def _get_token(response):
             return value
     return None
 
-def open_gdrive_file(blob_id):
+def open_file(blob_id):
     """ Read a file from Google Drive into memory. Returns an open (BytesIO) file-like object. """
     
     url = "https://docs.google.com/uc?export=download"
