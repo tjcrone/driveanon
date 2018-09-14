@@ -21,9 +21,17 @@ One way to get a list of blob ids using authentication is with [rclone](https://
 ```
 rclone lsf --format pi --csv remote:path
 ```
-We are currently working on ways to get a list of blob ids without authentication.
+
+**without authentication**
+```python
+import driveanon as da
+folder_blob_id = '1mn2Q1Gm0WEI51G_1A6SNsDJqV7jWVC-f'
+extension = '.txt'
+file_blob_ids = da.list_blobs(folder_blob_id, extension)
+```
+
 
 ## To Do
-  1. Anonymous blob id listing
+  1. Nested blob id listing
   2. File save-to-disk function
   3. Lazy (out of memory) file loading
