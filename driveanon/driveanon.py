@@ -1,5 +1,6 @@
 import io
 import requests
+from bs4 import BeautifulSoup
 
 def _get_token(response):
     for key, value in response.cookies.items():
@@ -20,9 +21,9 @@ def open_file(blob_id):
     file_bytes = response.content
     return io.BytesIO(file_bytes)
 
-def list_blobs(blob_id):
-    blob_id = '1mn2Q1Gm0WEI51G_1A6SNsDJqV7jWVC-f'
+def request_folder_blob(blob_id):  
     url = "https://drive.google.com/drive/folders/%s" % blob_id
     session = requests.Session()
     response = session.get(url, params = { 'usp' : 'sharing' })
-    return response
+    html_response = BeautifulSoup(response.text, 'html.parser')
+    return html_response
