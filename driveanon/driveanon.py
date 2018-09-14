@@ -34,3 +34,10 @@ def find_content_block(html_response, extension):
         if extension in element.text: 
             content_block.append(element)
     return content_block
+
+def extract_file_indices(content_block, extension):
+    # split up content up by common seperating character string
+    all_elements = str(content_block[0]).split('\\x22')
+    # extract indices for each extension occurance
+    file_indices = [i for i, s in enumerate(all_elements) if extension in s]
+    return file_indices, all_elements
