@@ -22,7 +22,7 @@ def open_file(blob_id):
     return io.BytesIO(file_bytes)
 
 def request_folder_blob(folder_blob_id):  
-    url = "https://drive.google.com/drive/folders/%s" % blob_id
+    url = "https://drive.google.com/drive/folders/%s" % folder_blob_id
     session = requests.Session()
     response = session.get(url, params = { 'usp' : 'sharing' })
     html_response = BeautifulSoup(response.text, 'html.parser')
@@ -42,12 +42,11 @@ def extract_file_indices(content_block, extension):
     file_indices = [i for i, s in enumerate(all_elements) if extension in s]
     return file_indices, all_elements
 
-def get_file_blobs(all_elements, indices):
+def get_file_blobs(all_elements, file_indices):
     file_names = []
     blob_ids = []
-
     # iterate over indices of file names
-    for ind in indices:
+    for ind in file_indices:
         # extract file name
         file_names.append(all_elements[ind])
         # extract blob id, which occurs 4 indices before the file name
@@ -57,6 +56,6 @@ def get_file_blobs(all_elements, indices):
 def list_blobs(folder_blob_id,extension):
     html_response = request_folder_blob(folder_blob_id)
     content_block = find_content_block(html_response, extension)
-    file_indices, all_elements = extract_file_blob_ids(content_block, extension)
-    file_names, file_blob_ids = get_file_blobs(all_elements, indices)
+    file_indices, all_elements = extract_file_indices(content_block, extension)
+    file_names, file_blob_ids = get_file_blobs(all_elements, file_indices)
     return file_blob_ids
