@@ -41,3 +41,15 @@ def extract_file_indices(content_block, extension):
     # extract indices for each extension occurance
     file_indices = [i for i, s in enumerate(all_elements) if extension in s]
     return file_indices, all_elements
+
+def get_file_blobs(all_elements, indices):
+    file_names = []
+    blob_ids = []
+    # iterate over indices of file names
+    for ind in indices:
+        # extract file name
+        file_names.append(all_elements[ind])
+        # extract blob id, which occurs 4 indices before the file name
+        blob_ids.append(all_elements[ind-4])
+    files_and_blobs = dict(zip(file_names, blob_ids))
+    return files_and_blobs
