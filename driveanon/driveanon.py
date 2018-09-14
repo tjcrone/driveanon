@@ -27,3 +27,10 @@ def request_folder_blob(blob_id):
     response = session.get(url, params = { 'usp' : 'sharing' })
     html_response = BeautifulSoup(response.text, 'html.parser')
     return html_response
+    
+def find_content_block(html_response, extension):
+    content_block = []
+    for element in html_response.find_all('script'):
+        if extension in element.text: 
+            content_block.append(element)
+    return content_block
