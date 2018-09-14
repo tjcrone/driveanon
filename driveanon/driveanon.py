@@ -58,5 +58,5 @@ def list_blobs(folder_blob_id,extension):
     html_response = request_folder_blob(folder_blob_id)
     content_block = find_content_block(html_response, extension)
     file_indices, all_elements = extract_file_blob_ids(content_block, extension)
-    file_names, blob_ids = get_file_blobs(all_elements, indices)
-    return blob_ids
+    file_names, file_blob_ids = get_file_blobs(all_elements, indices)
+    return file_blob_ids
