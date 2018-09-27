@@ -7,7 +7,7 @@ def _get_token(response):
             return value
     return None
 
-def _is_folder(blob_id):
+def _is_folder(response):
     if 'P3P' in response.headers:
         return True
     else:
@@ -15,14 +15,14 @@ def _is_folder(blob_id):
 
 def _get_response(blob_id):
     session = requests.Session()
+    url = 'https://drive.google.com/open'
+    response = session.get(url, params = { 'id' : blob_id })
 
-    if _is_folder(blob_id):
-        url = 'https://drive.google.com/open'
-        response = session.get(url, params = { 'id' : blob_id })
-    else:
-        url = "https://docs.google.com/uc?export=download"
-        response = session.get(url, params = { 'id' : blob_id }, stream = True,)
+    if _is_folder(response):
+        return response
 
+    url = "https://docs.google.com/uc?export=download"
+    response = session.get(url, params = { 'id' : blob_id }, stream = True,)
     token = _get_token(response)
     if token:
         params = { 'id' : blob_id, 'confirm' : token }
