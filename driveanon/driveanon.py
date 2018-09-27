@@ -22,3 +22,24 @@ def open(blob_id):
 
     response = _get_response(blob_id)
     return io.BytesIO(response.content)
+
+def save(blob_id, filename = None, overwrite = False):
+    """ Save a file from Google Drive to disk."""
+
+    # get response
+    response = _get_response(blob_id)
+
+    # parse filename
+    if not filename:
+        filename = response.headers['Content-Disposition'].split('=')[1].split('"')[1]
+
+    # check if filename is a file
+    from pathlib import Path
+    p = Path(filename)
+    if p.is_file() and not overwrite:
+        raise FileExistsError('File exists: %s' % filename)
+
+    # write file
+    import builtins
+    with builtins.open(filename, 'wb') as w:
+        w.write(response.content)
