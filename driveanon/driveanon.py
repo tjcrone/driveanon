@@ -7,9 +7,7 @@ def _get_token(response):
             return value
     return None
 
-def open(blob_id):
-    """ Read a file from Google Drive into memory. Returns an open (BytesIO) file-like object. """
-    
+def _get_response(blob_id):
     url = "https://docs.google.com/uc?export=download"
     session = requests.Session()
     response = session.get(url, params = { 'id' : blob_id }, stream = True,)
@@ -17,5 +15,10 @@ def open(blob_id):
     if token:
         params = { 'id' : blob_id, 'confirm' : token }
         response = session.get(url, params = params, stream = True)
-    file_bytes = response.content
-    return io.BytesIO(file_bytes)
+    return response
+
+def open(blob_id):
+    """ Read a file from Google Drive into memory. Returns an open (BytesIO) file-like object. """
+
+    response = _get_response(blob_id)
+    return io.BytesIO(response.content)
