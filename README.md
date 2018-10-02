@@ -21,7 +21,6 @@ print(f.readline())
 import driveanon as da
 blob_id = '1oq2pdwsDSKJEWmj8Ly6EvBv55MqYpZy-'
 da.save(blob_id)
-print(f.readline())
 ```
 `driveanon.save(blob_id, filename=None, overwrite=False)` saves a file to the local disk. If no filename is passed, the file will be named as it is named on Google Drive.
 
