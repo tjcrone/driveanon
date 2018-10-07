@@ -55,3 +55,5 @@ def save(blob_id, filename = None, overwrite = False):
     import builtins
     with builtins.open(filename, 'wb') as w:
         w.write(response.content)
+
+    return filename
