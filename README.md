@@ -1,5 +1,5 @@
 # driveanon
-This is a Python module that provides easy anonymous access to publicly shared Google Drive files via blob id. We are in the early stages so this is pretty basic, but we hope to add functionality soon! 
+This is a Python module that provides easy anonymous access to publicly shared Google Drive files via blob id. We are in the early stages so this is pretty basic, but we hope to add functionality soon!
 
 ## Installation
 Until we get this up on PyPI, the easiest way to install this is to clone the repo, move into the top directory of the repo, and then:
@@ -8,6 +8,8 @@ pip install -e .
 ```
 
 ## Basic Usage
+### Sharing Requirements
+driveanon only works with files on Google Drive that have sharing on, for "Anyone with the link" or "Public on the web". Any other sharing that requires a sign in will not work with driveanon.
 ### Opening Files
 ```python
 import driveanon as da
